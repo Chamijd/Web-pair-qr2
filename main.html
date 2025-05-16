@@ -3,303 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>THARUSHA-MD | CHMA MD WhatsApp Bot</title>
+  <title>CHMA MD WhatsApp Bot - Register/Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: #121212;
-      color: #eee;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
       min-height: 100vh;
-      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 20px;
     }
-
-    /* Loader styles */
-    .loader {
+    #container {
+      width: 400px;
+      background: rgba(20, 20, 20, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #ff00cc;
       text-align: center;
-      user-select: none;
     }
-    .loader h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 4px;
-      color: #1de9b6;
-    }
-    .loader p {
-      font-size: 1.2rem;
-      color: #aaa;
-      letter-spacing: 2px;
-      animation: blink 1.2s infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* Register form styles */
-    form.register-form {
-      background: #1e1e1e;
-      border-radius: 10px;
-      padding: 30px 40px;
-      width: 320px;
-      box-shadow: 0 0 20px #1de9b6aa;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s ease;
-    }
-    form.register-form.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    form.register-form h2 {
-      color: #1de9b6;
-      text-align: center;
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-    form.register-form label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-    form.register-form input {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-      background: #333;
-      color: #eee;
-      outline: none;
-      transition: background-color 0.3s;
-    }
-    form.register-form input:focus {
-      background-color: #1de9b6;
-      color: #121212;
-    }
-    form.register-form button {
-      margin-top: 15px;
-      padding: 12px;
-      background-color: #1de9b6;
-      border: none;
-      color: #121212;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    form.register-form button:hover {
-      background-color: #13b591;
-    }
-    .error-message {
-      color: #ff5555;
-      font-size: 0.9rem;
-      height: 1.2rem;
-      text-align: center;
-      margin-bottom: 10px;
-      min-height: 20px;
-    }
-
-    /* Success message */
-    .success-message {
-      color: #1de9b6;
-      font-size: 1rem;
-      text-align: center;
-      margin-bottom: 10px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      min-height: 20px;
-    }
-    .success-message.show {
-      opacity: 1;
-    }
-
-    /* Hero section */
-    section.hero {
-      text-align: center;
-      max-width: 600px;
-      margin-top: 40px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s ease;
-    }
-    section.hero.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    section.hero img {
-      max-width: 200px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #1de9b6aa;
-    }
-    section.hero h1 {
-      font-size: 2.8rem;
-      color: #1de9b6;
-      margin-bottom: 10px;
-    }
-    section.hero .para {
-      font-size: 1.1rem;
-      color: #ccc;
+    h2 {
       margin-bottom: 25px;
-      line-height: 1.4;
+      color: #ff00cc;
+      font-weight: 600;
+      font-size: 28px;
+      text-shadow: 0 0 10px #ff00cc;
     }
-
-    .buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 12px 22px;
-      background: #1de9b6;
-      color: #121212;
-      font-weight: 700;
-      font-size: 1rem;
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      margin-bottom: 15px;
       border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #eee;
+      font-size: 16px;
+      box-shadow: inset 0 0 5px #ff00cc;
+      transition: box-shadow 0.3s ease;
+    }
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 8px #ff00cc;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #ff00cc, #ff6600, #ff00cc);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff00cc;
+      transition: background 0.4s ease;
+    }
+    button:hover {
+      background: linear-gradient(45deg, #ff3399, #ff3300, #ff3399);
+    }
+    .button-container {
+      display: none;
+      margin-top: 25px;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .button-container.show { display: flex; }
+    .button-container a {
+      background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #00ff00, #00b3ff, #8a2be2, #ff00ff);
+      color: white;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      font-size: 16px;
       text-decoration: none;
-      box-shadow: 0 0 10px #1de9b6aa;
-      transition: background-color 0.3s;
-      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-size: 300% 300%;
+      animation: gradientAnimation 5s ease infinite;
+      transition: transform 0.3s ease;
     }
-    .btn:hover {
-      background-color: #13b591;
+    .button-container a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(255, 0, 255, 0.8);
     }
-    .btn.deploy {
-      background: #ff4081;
-      color: #fff;
-      box-shadow: 0 0 15px #ff4081aa;
+    .button-container a i { font-size: 18px; }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    .btn.deploy:hover {
-      background: #e040fb;
-    }
-    .btn.help {
-      background: #ffc107;
-      color: #121212;
-      box-shadow: 0 0 15px #ffc107aa;
-    }
-    .btn.help:hover {
-      background: #ffca28;
+    #confirm-message {
+      margin-top: 20px;
+      background: #0f0a28;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #00ffcc;
+      color: #00ffcc;
+      font-weight: 600;
+      display: none;
+      text-align: center;
+      box-shadow: 0 0 15px #00ffcc;
     }
   </style>
 </head>
 
-<body class="dark">
+<body>
+  <div id="container">
+    <!-- Register Form -->
+    <div id="register-section">
+      <h2>Register to CHMA MD Bot</h2>
+      <input type="text" id="name" placeholder="Full Name" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="register()">Register</button>
+    </div>
 
-  <!-- Loader -->
-  <div class="loader" id="loader">
-    <h1>CHAMA-MD</h1>
-    <p>LOADING</p>
+    <!-- Login Form -->
+    <div id="login-section" style="display:none;">
+      <h2>Login to CHMA MD Bot</h2>
+      <input type="email" id="login-email" placeholder="Email" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Confirmation Message -->
+    <div id="confirm-message"></div>
+
+    <!-- Dashboard Buttons -->
+    <div id="button-container" class="button-container">
+      <a href="/pair"><i class="fas fa-link"></i> Pair Code</a>
+      <a href="/qr"><i class="fas fa-qrcode"></i> QR Code</a>
+      <a href="https://github.com" target="_blank"><i class="fas fa-code-branch"></i> Bot Fork</a>
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> Bot GitHub</a>
+      <a href="https://wa.me/+94783314361?text=Hello_chamofc" target="_blank"><i class="fas fa-user-shield"></i> Contact Owner</a>
+    </div>
   </div>
 
-  <!-- Register Form -->
-  <form class="register-form" id="registerForm" novalidate>
-    <h2>Register Now</h2>
-    <div class="error-message" id="errorMsg"></div>
-    <div class="success-message" id="successMsg"></div>
-
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" placeholder="Your full name" required />
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="example@mail.com" required />
-
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="Choose a strong password" required minlength="6" />
-
-    <button type="submit">Register</button>
-  </form>
-
-  <!-- Hero Section -->
-  <section class="hero" id="heroSection">
-    <img src="https://telegra.ph/file/fc7b5d98d08a3d323fa86.png" alt="CHMA MD Bot" />
-    <h1>CHMA MD WhatsApp Bot</h1>
-    <p class="para">
-      Welcome to CHMA MD Bot - Your ultimate WhatsApp companion for seamless interaction!
-    </p>
-
-    <!-- Buttons -->
-    <div class="buttons">
-      <a href="/session" class="btn link-device">➪ Link-Device</a>
-      <a href="/deploy" class="btn deploy">☺️ Deploy</a>
-      <a href="https://wa.me/+94740326138?text=HELP_ME😢" class="btn help" target="_blank" rel="noopener noreferrer">⚜ Help</a>
-    </div>
-  </section>
-
   <script>
-    const loader = document.getElementById('loader');
-    const registerForm = document.getElementById('registerForm');
-    const heroSection = document.getElementById('heroSection');
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
+    window.onload = () => {
+      if (localStorage.getItem("registered") === "true") {
+        document.getElementById("register-section").style.display = "none";
+        document.getElementById("login-section").style.display = "block";
+      }
+    }
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        loader.style.transition = 'opacity 1s ease';
-        loader.style.opacity = 0;
+    function register() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
 
-        setTimeout(() => {
-          loader.style.display = 'none';
-          registerForm.classList.add('active');
-        }, 1000);
-      }, 3000);
-    });
-
-    registerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
-      successMsg.classList.remove('show');
-
-      const name = registerForm.name.value.trim();
-      const email = registerForm.email.value.trim();
-      const password = registerForm.password.value;
-
-      if (name.length < 3) {
-        errorMsg.textContent = 'Please enter a valid name (at least 3 characters).';
+      if (!name || !email || !password) {
+        alert('Please fill all fields!');
         return;
       }
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        errorMsg.textContent = 'Please enter a valid email address.';
-        return;
+      localStorage.setItem("registered", "true");
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+
+      showMessage(`✅ Welcome ${name}! You can now login.`);
+      document.getElementById("register-section").style.display = "none";
+      document.getElementById("login-section").style.display = "block";
+    }
+
+    function login() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      const storedEmail = localStorage.getItem("email");
+      const storedPassword = localStorage.getItem("password");
+
+      if (email === storedEmail && password === storedPassword) {
+        showMessage(`🎉 Login successful! Welcome back.`);
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("button-container").classList.add("show");
+      } else {
+        alert("❌ Invalid credentials!");
       }
+    }
 
-      if (password.length < 6) {
-        errorMsg.textContent = 'Password must be at least 6 characters long.';
-        return;
-      }
-
-      // Valid form
-      errorMsg.textContent = '';
-      successMsg.textContent = '🎉 Registration successful! Redirecting...';
-      successMsg.classList.add('show');
-
-      // Wait and then show hero
-      setTimeout(() => {
-        registerForm.classList.remove('active');
-        heroSection.classList.add('active');
-      }, 2000);
-    });
+    function showMessage(message) {
+      const msgBox = document.getElementById('confirm-message');
+      msgBox.style.display = 'block';
+      msgBox.textContent = message;
+    }
   </script>
-
 </body>
 </html>
