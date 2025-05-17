@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CHMA MD WhatsApp Bot - Register/Login</title>
+  <title>CHMA MD WEB</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -65,19 +66,6 @@
     button:hover {
       background: linear-gradient(45deg, #ff3399, #ff3300, #ff3399);
     }
-    .toggle-text {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #aaa;
-    }
-    .toggle-text a {
-      color: #00ffff;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .toggle-text a:hover {
-      text-decoration: underline;
-    }
     .button-container {
       display: none;
       margin-top: 25px;
@@ -124,38 +112,36 @@
       text-align: center;
       box-shadow: 0 0 15px #00ffcc;
     }
+    #toggle-link {
+      margin-top: 20px;
+      color: #ccc;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: underline;
+    }
   </style>
 </head>
-
 <body>
   <div id="container">
-    <!-- Register Form -->
     <div id="register-section">
       <h2>Register to CHMA MD Bot</h2>
       <input type="text" id="name" placeholder="Full Name" />
       <input type="email" id="email" placeholder="Email" />
       <input type="password" id="password" placeholder="Password" />
       <button onclick="register()">Register</button>
-      <p class="toggle-text">
-        Already have an account? <a href="#" onclick="toggleForm('login')">Login here</a>
-      </p>
+      <div id="toggle-link" onclick="toggleMode()">Already have an account? Login</div>
     </div>
 
-    <!-- Login Form -->
     <div id="login-section" style="display:none;">
       <h2>Login to CHMA MD Bot</h2>
       <input type="email" id="login-email" placeholder="Email" />
       <input type="password" id="login-password" placeholder="Password" />
       <button onclick="login()">Login</button>
-      <p class="toggle-text">
-        Don't have an account? <a href="#" onclick="toggleForm('register')">Register here</a>
-      </p>
+      <div id="toggle-link" onclick="toggleMode()">Don't have an account? Register</div>
     </div>
 
-    <!-- Confirmation Message -->
     <div id="confirm-message"></div>
 
-    <!-- Dashboard Buttons -->
     <div id="button-container" class="button-container">
       <a href="/pair"><i class="fas fa-link"></i> Pair Code</a>
       <a href="/qr"><i class="fas fa-qrcode"></i> QR Code</a>
@@ -166,11 +152,11 @@
   </div>
 
   <script>
-    window.onload = () => {
-      if (localStorage.getItem("registered") === "true") {
-        document.getElementById("register-section").style.display = "none";
-        document.getElementById("login-section").style.display = "block";
-      }
+    function toggleMode() {
+      const reg = document.getElementById('register-section');
+      const log = document.getElementById('login-section');
+      reg.style.display = reg.style.display === 'none' ? 'block' : 'none';
+      log.style.display = log.style.display === 'none' ? 'block' : 'none';
     }
 
     function register() {
@@ -183,45 +169,38 @@
         return;
       }
 
-      localStorage.setItem("registered", "true");
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-
+      localStorage.setItem('chma_user', JSON.stringify({ email, password }));
       showMessage(`✅ Welcome ${name}! You can now login.`);
-      toggleForm('login');
+      toggleMode();
     }
 
     function login() {
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value.trim();
+      const saved = JSON.parse(localStorage.getItem('chma_user'));
 
-      const storedEmail = localStorage.getItem("email");
-      const storedPassword = localStorage.getItem("password");
-
-      if (email === storedEmail && password === storedPassword) {
+      if (saved && email === saved.email && password === saved.password) {
         showMessage(`🎉 Login successful! Welcome back.`);
-        document.getElementById("login-section").style.display = "none";
-        document.getElementById("button-container").classList.add("show");
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('button-container').classList.add('show');
       } else {
-        alert("❌ Invalid credentials!");
+        alert('❌ Invalid credentials!');
       }
-    }
-
-    function toggleForm(view) {
-      if (view === 'login') {
-        document.getElementById("register-section").style.display = "none";
-        document.getElementById("login-section").style.display = "block";
-      } else {
-        document.getElementById("login-section").style.display = "none";
-        document.getElementById("register-section").style.display = "block";
-      }
-      document.getElementById('confirm-message').style.display = 'none';
     }
 
     function showMessage(message) {
       const msgBox = document.getElementById('confirm-message');
       msgBox.style.display = 'block';
       msgBox.textContent = message;
+    }
+
+    // Optional: auto-switch based on storage
+    window.onload = () => {
+      const saved = JSON.parse(localStorage.getItem('chma_user'));
+      if (saved) {
+        document.getElementById('register-section').style.display = 'none';
+        document.getElementById('login-section').style.display = 'block';
+      }
     }
   </script>
 </body>
