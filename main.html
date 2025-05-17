@@ -6,7 +6,6 @@
   <title>CHMA MD WhatsApp Bot - Register/Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -66,6 +65,19 @@
     button:hover {
       background: linear-gradient(45deg, #ff3399, #ff3300, #ff3399);
     }
+    .toggle-text {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+    .toggle-text a {
+      color: #00ffff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .toggle-text a:hover {
+      text-decoration: underline;
+    }
     .button-container {
       display: none;
       margin-top: 25px;
@@ -124,6 +136,9 @@
       <input type="email" id="email" placeholder="Email" />
       <input type="password" id="password" placeholder="Password" />
       <button onclick="register()">Register</button>
+      <p class="toggle-text">
+        Already have an account? <a href="#" onclick="toggleForm('login')">Login here</a>
+      </p>
     </div>
 
     <!-- Login Form -->
@@ -132,6 +147,9 @@
       <input type="email" id="login-email" placeholder="Email" />
       <input type="password" id="login-password" placeholder="Password" />
       <button onclick="login()">Login</button>
+      <p class="toggle-text">
+        Don't have an account? <a href="#" onclick="toggleForm('register')">Register here</a>
+      </p>
     </div>
 
     <!-- Confirmation Message -->
@@ -170,8 +188,7 @@
       localStorage.setItem("password", password);
 
       showMessage(`✅ Welcome ${name}! You can now login.`);
-      document.getElementById("register-section").style.display = "none";
-      document.getElementById("login-section").style.display = "block";
+      toggleForm('login');
     }
 
     function login() {
@@ -188,6 +205,17 @@
       } else {
         alert("❌ Invalid credentials!");
       }
+    }
+
+    function toggleForm(view) {
+      if (view === 'login') {
+        document.getElementById("register-section").style.display = "none";
+        document.getElementById("login-section").style.display = "block";
+      } else {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("register-section").style.display = "block";
+      }
+      document.getElementById('confirm-message').style.display = 'none';
     }
 
     function showMessage(message) {
