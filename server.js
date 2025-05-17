@@ -1,39 +1,48 @@
-import express from 'express';
-import nodemailer from 'nodemailer';
-import cors from 'cors';
-
+const express = require("express");
+const path = require("path");
 const app = express();
-app.use(cors());
+const PORT = 2435;
+
+// In-memory user store
+const users = [];
+
+app.use(express.static(path.join(__dirname, "storage")));
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',  // Gmail SMTP server
-  port: 587,
-  secure: false,
-  auth: {
-    user: 'ransikachamindu43@gmail.com',     // ඔබේ Gmail එක
-    pass: 'Chamindu2008',  // Gmail App Password
-  },
+// Register
+app.post("/register", (req, res) => {
+  const { email, username, password } = req.body;
+
+  const exists = users.find(user => user.email === email);
+  if (exists) {
+    return res.status(400).send("Email already registered!");
+  }
+
+  users.push({ email, username, password });
+  console.log("Registered users:", users);
+  res.send("Registration successful");
 });
 
-app.post('/send-email', async (req, res) => {
-  const { name, email } = req.body;
+// Login
+app.post("/login", (req, res) => {
+  const { identifier, password } = req.body;
 
-  try {
-    await transporter.sendMail({
-      from: '"CHMA MD Bot" <yourgmail@gmail.com>',
-      to: email,
-      subject: 'Registration Successful!',
-      text: `Hello ${name},\n\nThank you for registering with CHMA MD WhatsApp Bot!`,
-      html: `<p>Hello <b>${name}</b>,</p><p>Thank you for registering with <b>CHMA MD WhatsApp Bot</b>!</p>`,
-    });
-    res.json({ success: true, message: 'Email sent' });
-  } catch (error) {
-    console.error('Email send error:', error);
-    res.status(500).json({ success: false, message: 'Failed to send email' });
+  const user = users.find(u =>
+    (u.email === identifier || u.username === identifier) && u.password === password
+  );
+
+  if (user) {
+    res.send("Login successful");
+  } else {
+    res.status(401).send("Invalid credentials!");
   }
 });
 
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+// Fallback
+app.use((req, res) => {
+  res.status(404).send("404 Not Found");
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
