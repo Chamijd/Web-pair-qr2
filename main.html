@@ -3,282 +3,304 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CHMA MD WhatsApp Bot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <title>CHAMA-MD-WEB</title>
   <style>
-    :root {
-      --bg-color: #000;
-      --text-color: #fff;
-      --card-bg: rgba(20, 20, 20, 0.95);
-      --accent: #ff00cc;
-      --shadow: #ff00cc;
-    }
-    body.light {
-      --bg-color: #f1f1f1;
-      --text-color: #111;
-      --card-bg: #fff;
-      --accent: #ff0066;
-      --shadow: #aaa;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
+      background: #1b1b2f;
+      color: #eee;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 20px;
-      transition: background 0.3s ease, color 0.3s ease;
+      align-items: center;
+      min-height: 100vh;
+      transition: background-color 0.3s ease;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 20px;
+    body.light-mode {
+      background: #f5f5f5;
+      color: #111;
     }
 
-    header h1 {
-      color: var(--accent);
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .info {
-      font-size: 14px;
-      margin: 5px 0;
-      opacity: 0.9;
-    }
-
-    .mode-toggle {
-      margin-top: 10px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background: var(--accent);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      color: white;
-      transition: background 0.3s;
-    }
-
-    #container {
-      width: 100%;
-      max-width: 420px;
-      background: var(--card-bg);
-      padding: 30px;
+    .container {
+      background: #16213e;
+      padding: 30px 25px;
       border-radius: 12px;
-      box-shadow: 0 0 20px var(--shadow);
+      width: 350px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.25);
+      transition: background 0.3s ease, color 0.3s ease;
       text-align: center;
+      position: relative;
+    }
+
+    body.light-mode .container {
+      background: #fff;
+      color: #111;
     }
 
     h2 {
       margin-bottom: 20px;
-      color: var(--accent);
       font-weight: 600;
-      font-size: 24px;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
+      font-size: 1.7rem;
+      color: #00ffcc;
     }
 
     input {
-      background: #222;
-      color: #eee;
-    }
-
-    button {
-      background: linear-gradient(45deg, #ff00cc, #ff6600);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #toggle-link {
-      margin-top: 10px;
-      font-size: 13px;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .button-container {
-      display: none;
-      margin-top: 20px;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .button-container.show {
-      display: flex;
-    }
-
-    .button-container a {
-      padding: 12px 20px;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-    }
-
-    .weather-card {
-      display: none;
-      margin-top: 20px;
-      background: var(--card-bg);
-      border-left: 4px solid var(--accent);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px var(--shadow);
       width: 100%;
-      max-width: 400px;
-      text-align: center;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
     }
 
-    #confirm-message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: var(--accent);
+    button.auth-btn {
+      width: 100%;
+      background-color: #0f3460;
+      border: none;
+      padding: 13px;
+      margin-top: 15px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.auth-btn:hover {
+      background-color: #53354a;
+    }
+
+    #toggle {
+      margin-top: 15px;
+      color: #00ffcc;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #toggle:hover {
+      color: #33fff2;
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(45deg, #00ffcc, #53354a);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      animation: fadeInOut 3s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes fadeInOut {
+      0% {opacity: 0; transform: translateX(-50%) translateY(-20px);}
+      10%, 90% {opacity: 1; transform: translateX(-50%) translateY(0);}
+      100% {opacity: 0; transform: translateX(-50%) translateY(-20px);}
+    }
+
+    #dashboard {
+      display: none;
+      background: #16213e;
+      padding: 25px 30px 60px;
+      border-radius: 12px;
+      width: 350px;
+      text-align: center;
+      position: relative;
+    }
+
+    body.light-mode #dashboard {
+      background: #fff;
+      color: #111;
+    }
+
+    #welcome-msg {
+      font-size: 1.3rem;
+      min-height: 40px;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00ffcc;
+      width: 100%;
+      animation: typing 2s steps(20), blink 0.8s infinite step-end alternate;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    #button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #button-container button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: #0f3460;
+      color: white;
+      cursor: pointer;
+    }
+
+    #button-container button:hover {
+      background-color: #53354a;
+    }
+
+    #logout-btn {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #c0392b;
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #mode-toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #00ffcc;
+    }
+
+    #mode-toggle-btn:hover {
+      color: #00e1c2;
     }
   </style>
 </head>
 <body>
 
-  <header id="header-info" style="display: none;">
-    <h1>CHMA MD WhatsApp Bot</h1>
-    <div class="info" id="user-info"></div>
-    <div class="info" id="ip-info">Loading IP...</div>
-    <div class="info" id="time-info">Loading time...</div>
-    <button onclick="toggleTheme()" id="mode-toggle" class="mode-toggle">🌙</button>
-  </header>
-
-  <div id="container">
-    <div id="register-section">
-      <h2>Register</h2>
-      <input type="text" id="name" placeholder="Full Name" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="register()">Register</button>
-      <div id="toggle-link" onclick="toggleMode()">Already have an account? Login</div>
-    </div>
-
-    <div id="login-section" style="display:none;">
-      <h2>Login</h2>
-      <input type="email" id="login-email" placeholder="Email" />
-      <input type="password" id="login-password" placeholder="Password" />
-      <button onclick="login()">Login</button>
-      <div id="toggle-link" onclick="toggleMode()">Don't have an account? Register</div>
-    </div>
-
-    <div id="confirm-message"></div>
-
-    <div id="button-container" class="button-container">
-      <a href="/pair">🔗 Pair</a>
-      <a href="/qr">📷 QR</a>
-      <a href="https://github.com" target="_blank">🌟 GitHub</a>
-      <a href="https://wa.me/+94783314361?text=Hello_chamofc" target="_blank">👤 Owner</a>
-    </div>
+  <div class="container" id="auth-box">
+    <button id="mode-toggle-btn" onclick="toggleMode()">🌙</button>
+    <h2 id="form-title">Register</h2>
+    <input type="text" id="nameOrEmail" placeholder="Name" />
+    <input type="email" id="email" placeholder="Email" style="display:block;" />
+    <input type="password" id="password" placeholder="Password" />
+    <button class="auth-btn" onclick="handleAuth()">Register</button>
+    <div id="toggle" onclick="toggleForm()">Already have an account? Login</div>
   </div>
 
-  <div class="weather-card" id="weather-card">
-    <h2 id="weather-location">--</h2>
-    <h3 id="weather-temp">--°C</h3>
-    <p id="weather-desc">Loading weather...</p>
+  <div class="container" id="dashboard">
+    <button id="mode-toggle-btn" onclick="toggleMode()">🌙</button>
+    <h2 id="welcome-msg"></h2>
+    <div id="button-container">
+      <button onclick="alert('🔗 Pair clicked')">🔗 Pair</button>
+      <button onclick="alert('📷 QR clicked')">📷 QR</button>
+      <button onclick="window.open('https://github.com', '_blank')">🌟 GitHub</button>
+      <button onclick="window.open('https://wa.me/+94783314361?text=Hello_chamofc', '_blank')">👤 Owner</button>
+    </div>
+    <button id="logout-btn" onclick="logout()">🚪 Logout</button>
   </div>
 
   <script>
-    function toggleMode() {
-      const reg = document.getElementById('register-section');
-      const log = document.getElementById('login-section');
-      reg.style.display = reg.style.display === 'none' ? 'block' : 'none';
-      log.style.display = log.style.display === 'none' ? 'block' : 'none';
+    let isLogin = false;
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.getElementById('form-title').innerText = isLogin ? 'Login' : 'Register';
+      document.querySelector('.auth-btn').innerText = isLogin ? 'Login' : 'Register';
+      document.getElementById('email').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('toggle').innerText = isLogin ? "Don't have an account? Register" : "Already have an account? Login";
+      document.getElementById('nameOrEmail').placeholder = isLogin ? 'Name or Email' : 'Name';
     }
 
-    function register() {
-      const name = document.getElementById('name').value.trim();
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function handleAuth() {
+      const nameOrEmail = document.getElementById('nameOrEmail').value.trim();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
-      if (!name || !email || !password) return alert("Fill all fields!");
-      localStorage.setItem('chma_user', JSON.stringify({ name, email, password }));
-      showMessage(`✅ Welcome ${name}! You can now login.`);
-      toggleMode();
-    }
 
-    function login() {
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value.trim();
-      const saved = JSON.parse(localStorage.getItem('chma_user'));
-      if (saved && email === saved.email && password === saved.password) {
-        showMessage("🎉 Login successful!");
-        document.getElementById('login-section').style.display = 'none';
-        document.getElementById('button-container').classList.add('show');
-        document.getElementById('header-info').style.display = 'block';
-        document.getElementById('weather-card').style.display = 'block';
-        document.getElementById('user-info').textContent = `👤 Welcome, ${saved.name}`;
-        fetchIP();
-        updateTime();
-        fetchWeather();
+      if (!nameOrEmail || !password || (!isLogin && !email)) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+      if (isLogin) {
+        const user = users.find(u =>
+          (u.name === nameOrEmail || u.email === nameOrEmail) && u.password === password
+        );
+        if (user) {
+          loginSuccess(user.name);
+        } else {
+          alert('Invalid credentials');
+        }
       } else {
-        alert('❌ Invalid credentials!');
+        if (users.find(u => u.email === email)) {
+          alert('Email already registered');
+        } else {
+          users.push({ name: nameOrEmail, email, password });
+          localStorage.setItem('users', JSON.stringify(users));
+          showToast('✅ Registered successfully! Now login');
+          toggleForm();
+        }
       }
     }
 
-    function showMessage(msg) {
-      document.getElementById('confirm-message').innerText = msg;
+    function loginSuccess(name) {
+      document.getElementById('auth-box').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      typeWriter(`Welcome, ${name}!`);
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle('light');
-      const btn = document.getElementById('mode-toggle');
-      btn.textContent = document.body.classList.contains('light') ? '🌞' : '🌙';
+    function logout() {
+      document.getElementById('auth-box').style.display = 'block';
+      document.getElementById('dashboard').style.display = 'none';
     }
 
-    function fetchIP() {
-      fetch("https://api.ipify.org?format=json")
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("ip-info").textContent = `IP Address: ${data.ip}`;
-        });
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+      document.querySelectorAll("#mode-toggle-btn").forEach(btn => {
+        btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+      });
     }
 
-    function updateTime() {
-      const update = () => {
-        const now = new Date();
-        document.getElementById("time-info").textContent = `Time: ${now.toLocaleTimeString()}`;
-      };
-      update();
-      setInterval(update, 1000);
+    function typeWriter(text) {
+      const el = document.getElementById('welcome-msg');
+      el.textContent = '';
+      let i = 0;
+      const interval = setInterval(() => {
+        el.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 50);
     }
-
-    function fetchWeather() {
-      fetch("https://ipapi.co/json")
-        .then(res => res.json())
-        .then(loc => {
-          const city = loc.city;
-          fetch(`https://wttr.in/${city}?format=j1`)
-            .then(res => res.json())
-            .then(data => {
-              document.getElementById('weather-location').textContent = `📍 ${city}`;
-              document.getElementById('weather-temp').textContent = `${data.current_condition[0].temp_C}°C`;
-              document.getElementById('weather-desc').textContent = data.current_condition[0].weatherDesc[0].value;
-            });
-        });
-    }
-
-    window.onload = () => {
-      const saved = JSON.parse(localStorage.getItem('chma_user'));
-      if (saved) {
-        document.getElementById('register-section').style.display = 'none';
-        document.getElementById('login-section').style.display = 'block';
-      }
-    };
   </script>
+
 </body>
 </html>
