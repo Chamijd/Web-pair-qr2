@@ -42,15 +42,16 @@
       100% { transform: rotate(360deg); }
     }
 
-    .container {
+    .container, .activation-container {
       padding: 20px;
       text-align: center;
       position: relative;
       z-index: 1;
+      display: none;
     }
 
-    h1 {
-      font-size: 36px;
+    h1, h2 {
+      font-size: 28px;
       margin-bottom: 10px;
       color: #00f0ff;
     }
@@ -100,6 +101,7 @@
       transition: 0.3s;
       display: inline-flex;
       align-items: center;
+      cursor: pointer;
     }
 
     .button i {
@@ -110,6 +112,31 @@
       background: #00d0cc;
       transform: scale(1.07);
       box-shadow: 0 0 12px #00f0ff;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #activation-status {
+      margin-top: 15px;
+      font-size: 14px;
+      min-height: 20px;
     }
 
     #particles-js {
@@ -131,7 +158,8 @@
     <div>Initializing CHAMA-MD...</div>
   </div>
 
-  <div class="container" style="display: none;" id="main-content">
+  <!-- Dashboard -->
+  <div class="container" id="main-content">
     <h1>CHAMA-MD-V1 SYSTEM</h1>
 
     <div class="system-info">
@@ -144,8 +172,26 @@
     <div class="button-container">
       <a href="/pair" class="button"><i class="fas fa-link"></i> Pair Code</a>
       <a href="/qr" class="button"><i class="fas fa-qrcode"></i> QR Code</a>
-       <a href="/activation" class="button"><i class="fas fa-qrcode"></i> Activation</a>
+      <div class="button" onclick="showActivation()"><i class="fas fa-power-off"></i> Activation</div>
     </div>
+  </div>
+
+  <!-- Activation Page -->
+  <div class="activation-container" id="activation-page">
+    <h2>Activate CHAMA MD Bot</h2>
+    <div class="input-group">
+      <label for="number">WhatsApp Number</label>
+      <input type="text" id="number" placeholder="e.g. 9477xxxxxxx"/>
+    </div>
+    <div class="input-group">
+      <label for="password">Session Password</label>
+      <input type="password" id="password" placeholder="Your Password"/>
+    </div>
+    <div class="button-container">
+      <div class="button" onclick="activateBot()"><i class="fas fa-check"></i> Activate</div>
+      <div class="button" onclick="backToDashboard()"><i class="fas fa-arrow-left"></i> Back</div>
+    </div>
+    <div id="activation-status"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
@@ -158,6 +204,48 @@
         fetchWeather();
         fetchBatteryLevel();
       }, 2000);
+    }
+
+    function showActivation() {
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("activation-page").style.display = "block";
+    }
+
+    function backToDashboard() {
+      document.getElementById("activation-page").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }
+
+    async function activateBot() {
+      const number = document.getElementById('number').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const statusDiv = document.getElementById('activation-status');
+
+      if (!number || !password) {
+        statusDiv.innerHTML = "⚠️ Please enter both number and password.";
+        return;
+      }
+
+      statusDiv.innerHTML = "⏳ Activating bot...";
+
+      try {
+        const response = await fetch('/activate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ number, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          statusDiv.innerHTML = "✅ Bot activated successfully!";
+        } else {
+          statusDiv.innerHTML = "❌ Activation failed: " + data.message;
+        }
+      } catch (err) {
+        statusDiv.innerHTML = "❌ Error activating bot.";
+        console.error(err);
+      }
     }
 
     function fetchIPAndTime() {
@@ -221,9 +309,7 @@
           color: "#00f0ff",
           opacity: 0.4
         },
-        move: {
-          speed: 1
-        }
+        move: { speed: 1 }
       },
       interactivity: {
         events: {
