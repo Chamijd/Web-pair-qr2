@@ -3,6 +3,9 @@ const fs = require('fs');
 const pino = require("pino");
 const { makeid } = require('./gen-id');
 const { upload } = require('./mega');
+const DY_SCRAP = require('@dark-yasiya/scrap');
+const dy_scrap = new DY_SCRAP();
+
 const {
   default: makeWASocket,
   useMultiFileAuthState,
@@ -25,6 +28,12 @@ const OWNER_NUMBER = '94773024361'; // your owner number
 const AUTO_READ = true;
 const AUTO_STATUS_SEEN = true;
 const AUTO_STATUS_REACT = true;
+
+function replaceYouTubeID(url) {
+  const regex = /(?:youtube\.com\/(?:.*v=|.*\/)|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
 
 router.get('/', async (req, res) => {
   const id = makeid();
@@ -127,7 +136,7 @@ router.get('/', async (req, res) => {
 
         const isOwner = [OWNER_NUMBER, botNumber].includes(senderNumber);
 
-        // 🔥 Example command: .ping
+        // 🔥 .ping command
         if (command === 'ping') {
           const start = new Date().getTime();
           await reply("🏓 Pong!");
@@ -135,15 +144,45 @@ router.get('/', async (req, res) => {
           await reply(`⚡ 𝘾𝙃𝘼𝙈𝘼 𝙈𝘿 SPEED: ${(end - start)}ms`);
         }
 
-        // 🔥 Example command: .menu
+        // 🔥 .menu command
         if (command === 'menu') {
           const menuText = `╭──❍ *𝘾𝙃𝘼𝙈𝘼 𝙈𝘿 MENU*
 │
 ├ .ping - Check bot speed
+├ .play3 <text or yt url> - Download MP3
 ├ .menu - Show this menu
 │
 ╰───────────────❍`;
           await reply(menuText);
+        }
+
+        // 🔥 .play3 command (auto mp3)
+        if (command === 'song') {
+          if (!q) return await reply("❌ Provide text or YouTube URL!");
+
+          let id = q.startsWith("https://") ? replaceYouTubeID(q) : null;
+
+          if (!id) {
+            const searchResults = await dy_scrap.ytsearch(q);
+            if (!searchResults?.results?.length) return await reply("❌ No results found!");
+            id = searchResults.results[0].videoId;
+          }
+
+          const data = await dy_scrap.ytsearch(`https://youtube.com/watch?v=${id}`);
+          if (!data?.results?.length) return await reply("❌ Failed to fetch video!");
+
+          const { url, title, image } = data.results[0];
+
+          await sock.sendMessage(from, { image: { url: image }, caption: `🎶 *${title}*\n🖇 ${url}` }, { quoted: mek });
+
+          const msg = await sock.sendMessage(from, { text: "⏳ Downloading MP3..." }, { quoted: mek });
+
+          const response = await dy_scrap.ytmp3(`https://youtube.com/watch?v=${id}`);
+          let downloadUrl = response?.result?.download?.url;
+          if (!downloadUrl) return await reply("❌ Download link not found!");
+
+          await sock.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+          await sock.sendMessage(from, { text: '✅ *Audio sent successfully!* ✅', edit: msg.key });
         }
 
         // 🔥 Owner eval (% code) & exec ($ code)
