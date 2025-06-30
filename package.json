@@ -12,6 +12,7 @@
   "dependencies": {
     "@whiskeysockets/baileys": "github:seiren-primrose/PL-Baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
+    "@dark-yasiya/scrap": "^1.0.4",
     "qrcode": "^1.5.3",
     "awesome-phonenumber": "^2.64.0",
     "pino": "^8.1.0",
@@ -21,6 +22,11 @@
     "path": "^0.12.7",
     "megajs": "1.1.7",
     "pm2": "^5.4.0",
-    "async-mutex": "0.4.1"
+    "async-mutex": "0.4.1",
+    "util": "^0.12.5",
+    "nanoid": "^4.0.2",
+    "mime-types": "^2.1.35",
+    "ws": "^8.13.0",
+    "puppeteer": "^21.3.8"
   }
 }
