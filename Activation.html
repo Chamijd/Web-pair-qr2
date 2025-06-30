@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHAMA-MD Bot Activation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #000428, #004e92);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 30px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 20px #00f0ff;
+      backdrop-filter: blur(10px);
+    }
+    .card h2 {
+      margin-bottom: 20px;
+      color: #00f0ff;
+    }
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .input-group label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #00f0ff;
+      color: #000;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background: #00d0cc;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00f0ff;
+    }
+    .status {
+      margin-top: 15px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Activate CHAMA MD Bot</h2>
+    <div class="input-group">
+      <label for="number">WhatsApp Number</label>
+      <input type="text" id="number" placeholder="e.g. 9477xxxxxxx"/>
+    </div>
+    <div class="input-group">
+      <label for="password">Session Password</label>
+      <input type="password" id="password" placeholder="Your Password"/>
+    </div>
+    <button onclick="activateBot()"><i class="fas fa-power-off"></i> Activate</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <script src="activation.js"></script>
+</body>
+</html>
