@@ -2,305 +2,235 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CHAMA-MD-WEB</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHAMA-MD-V1 SYSTEM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
     body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #000428, #004e92);
+      color: #fff;
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #1b1b2f;
-      color: #eee;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .loading-screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      transition: background-color 0.3s ease;
+      z-index: 999;
+      flex-direction: column;
     }
 
-    body.light-mode {
-      background: #f5f5f5;
-      color: #111;
+    .loader {
+      border: 8px solid #fff;
+      border-top: 8px solid #00f0ff;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .container {
-      background: #16213e;
-      padding: 30px 25px;
-      border-radius: 12px;
-      width: 350px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.25);
-      transition: background 0.3s ease, color 0.3s ease;
+      padding: 20px;
       text-align: center;
       position: relative;
+      z-index: 1;
     }
 
-    body.light-mode .container {
-      background: #fff;
-      color: #111;
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: #00f0ff;
     }
 
-    h2 {
-      margin-bottom: 20px;
-      font-weight: 600;
-      font-size: 1.7rem;
+    .system-info {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #00f0ff;
+      border-radius: 15px;
+      padding: 20px;
+      display: inline-block;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      margin-bottom: 30px;
+    }
+
+    .info {
+      margin: 12px 0;
+      font-size: 18px;
+    }
+
+    #battery-info {
+      color: #00ffcc;
+      font-weight: bold;
+      text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+    }
+
+    #battery-info i {
+      margin-right: 8px;
       color: #00ffcc;
     }
 
-    input {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
-
-    button.auth-btn {
-      width: 100%;
-      background-color: #0f3460;
-      border: none;
-      padding: 13px;
-      margin-top: 15px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button.auth-btn:hover {
-      background-color: #53354a;
-    }
-
-    #toggle {
-      margin-top: 15px;
-      color: #00ffcc;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    #toggle:hover {
-      color: #33fff2;
-    }
-
-    .toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(45deg, #00ffcc, #53354a);
-      color: white;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      opacity: 0;
-      pointer-events: none;
-      animation: fadeInOut 3s forwards;
-      z-index: 9999;
-    }
-
-    @keyframes fadeInOut {
-      0% {opacity: 0; transform: translateX(-50%) translateY(-20px);}
-      10%, 90% {opacity: 1; transform: translateX(-50%) translateY(0);}
-      100% {opacity: 0; transform: translateX(-50%) translateY(-20px);}
-    }
-
-    #dashboard {
-      display: none;
-      background: #16213e;
-      padding: 25px 30px 60px;
-      border-radius: 12px;
-      width: 350px;
-      text-align: center;
-      position: relative;
-    }
-
-    body.light-mode #dashboard {
-      background: #fff;
-      color: #111;
-    }
-
-    #welcome-msg {
-      font-size: 1.3rem;
-      min-height: 40px;
-      margin-bottom: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #00ffcc;
-      width: 100%;
-      animation: typing 2s steps(20), blink 0.8s infinite step-end alternate;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    #button-container {
+    .button-container {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
 
-    #button-container button {
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      background-color: #0f3460;
-      color: white;
-      cursor: pointer;
+    .button {
+      background: #00f0ff;
+      color: #000;
+      padding: 16px 28px;
+      font-size: 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
     }
 
-    #button-container button:hover {
-      background-color: #53354a;
+    .button i {
+      margin-right: 10px;
     }
 
-    #logout-btn {
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #c0392b;
-      padding: 10px 20px;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
+    .button:hover {
+      background: #00d0cc;
+      transform: scale(1.07);
+      box-shadow: 0 0 12px #00f0ff;
     }
 
-    #mode-toggle-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #00ffcc;
-    }
-
-    #mode-toggle-btn:hover {
-      color: #00e1c2;
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
-<body>
+<body onload="startLoading()">
 
-  <div class="container" id="auth-box">
-    <button id="mode-toggle-btn" onclick="toggleMode()">🌙</button>
-    <h2 id="form-title">Register</h2>
-    <input type="text" id="nameOrEmail" placeholder="Name" />
-    <input type="email" id="email" placeholder="Email" style="display:block;" />
-    <input type="password" id="password" placeholder="Password" />
-    <button class="auth-btn" onclick="handleAuth()">Register</button>
-    <div id="toggle" onclick="toggleForm()">Already have an account? Login</div>
+  <div id="particles-js"></div>
+
+  <div class="loading-screen" id="loading-screen">
+    <div class="loader"></div>
+    <div>Initializing CHAMA-MD...</div>
   </div>
 
-  <div class="container" id="dashboard">
-    <button id="mode-toggle-btn" onclick="toggleMode()">🌙</button>
-    <h2 id="welcome-msg"></h2>
-    <div id="button-container">
-      <button onclick="alert('🔗 Pair clicked')">🔗 Pair</button>
-      <button onclick="alert('📷 QR clicked')">📷 QR</button>
-      <button onclick="window.open('https://github.com', '_blank')">🌟 GitHub</button>
-      <button onclick="window.open('https://wa.me/+94783314361?text=Hello_chamofc', '_blank')">👤 Owner</button>
+  <div class="container" style="display: none;" id="main-content">
+    <h1>CHAMA-MD-V1 SYSTEM</h1>
+
+    <div class="system-info">
+      <div class="info" id="ip-info">IP Address: Loading...</div>
+      <div class="info" id="time-info">Time: Loading...</div>
+      <div class="info" id="weather-info">Weather: Loading...</div>
+      <div class="info" id="battery-info"><i class="fas fa-battery-half"></i> Battery Level: Loading...</div>
     </div>
-    <button id="logout-btn" onclick="logout()">🚪 Logout</button>
+
+    <div class="button-container">
+      <a href="/pair" class="button"><i class="fas fa-link"></i> Pair Code</a>
+      <a href="/qr" class="button"><i class="fas fa-qrcode"></i> QR Code</a>
+      <a href="https://github.com/CHMA2009/-CHAMA-MD/fork" class="button"><i class="fas fa-code-branch"></i> Bot Fork</a>
+    </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <script>
-    let isLogin = false;
-
-    function toggleForm() {
-      isLogin = !isLogin;
-      document.getElementById('form-title').innerText = isLogin ? 'Login' : 'Register';
-      document.querySelector('.auth-btn').innerText = isLogin ? 'Login' : 'Register';
-      document.getElementById('email').style.display = isLogin ? 'none' : 'block';
-      document.getElementById('toggle').innerText = isLogin ? "Don't have an account? Register" : "Already have an account? Login";
-      document.getElementById('nameOrEmail').placeholder = isLogin ? 'Name or Email' : 'Name';
+    function startLoading() {
+      setTimeout(() => {
+        document.getElementById("loading-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        fetchIPAndTime();
+        fetchWeather();
+        fetchBatteryLevel();
+      }, 2000);
     }
 
-    function showToast(msg) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = msg;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
+    function fetchIPAndTime() {
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("ip-info").innerText = "IP Address: " + data.ip;
+        });
+
+      const now = new Date();
+      document.getElementById("time-info").innerText =
+        "Time: " + now.toLocaleTimeString();
     }
 
-    function handleAuth() {
-      const nameOrEmail = document.getElementById('nameOrEmail').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (!nameOrEmail || !password || (!isLogin && !email)) {
-        alert('Please fill all fields');
-        return;
-      }
-
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-      if (isLogin) {
-        const user = users.find(u =>
-          (u.name === nameOrEmail || u.email === nameOrEmail) && u.password === password
+    function fetchWeather() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            fetch(`https://api.weatherapi.com/v1/current.json?key=4d673b437b5b4e92952155513242605&q=${lat},${lon}`)
+              .then((response) => response.json())
+              .then((data) => {
+                const condition = data.current.condition.text;
+                const temp = data.current.temp_c;
+                document.getElementById("weather-info").innerText =
+                  `Weather: ${condition}, ${temp}°C`;
+              });
+          },
+          () => {
+            document.getElementById("weather-info").innerText = "Weather: Location permission denied.";
+          }
         );
-        if (user) {
-          loginSuccess(user.name);
-        } else {
-          alert('Invalid credentials');
-        }
       } else {
-        if (users.find(u => u.email === email)) {
-          alert('Email already registered');
-        } else {
-          users.push({ name: nameOrEmail, email, password });
-          localStorage.setItem('users', JSON.stringify(users));
-          showToast('✅ Registered successfully! Now login');
-          toggleForm();
-        }
+        document.getElementById("weather-info").innerText = "Weather: Geolocation not supported.";
       }
     }
 
-    function loginSuccess(name) {
-      document.getElementById('auth-box').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      typeWriter(`Welcome, ${name}!`);
+    async function fetchBatteryLevel() {
+      if (navigator.getBattery) {
+        const battery = await navigator.getBattery();
+        const level = Math.round(battery.level * 100);
+        document.getElementById('battery-info').innerHTML = `<i class="fas fa-battery-half"></i> Battery Level: ${level}%`;
+
+        battery.addEventListener('levelchange', () => {
+          const updatedLevel = Math.round(battery.level * 100);
+          document.getElementById('battery-info').innerHTML = `<i class="fas fa-battery-half"></i> Battery Level: ${updatedLevel}%`;
+        });
+      } else {
+        document.getElementById('battery-info').innerText = 'Battery info not supported.';
+      }
     }
 
-    function logout() {
-      document.getElementById('auth-box').style.display = 'block';
-      document.getElementById('dashboard').style.display = 'none';
-    }
-
-    function toggleMode() {
-      document.body.classList.toggle('light-mode');
-      document.querySelectorAll("#mode-toggle-btn").forEach(btn => {
-        btn.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
-      });
-    }
-
-    function typeWriter(text) {
-      const el = document.getElementById('welcome-msg');
-      el.textContent = '';
-      let i = 0;
-      const interval = setInterval(() => {
-        el.textContent += text.charAt(i);
-        i++;
-        if (i >= text.length) clearInterval(interval);
-      }, 50);
-    }
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 3 },
+        color: { value: "#00f0ff" },
+        line_linked: {
+          enable: true,
+          color: "#00f0ff",
+          opacity: 0.4
+        },
+        move: {
+          speed: 1
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      }
+    });
   </script>
-
 </body>
 </html>
